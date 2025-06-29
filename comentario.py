@@ -19,7 +19,7 @@ def lambda_handler(event, context):
         }
     }
     dynamodb = boto3.resource('dynamodb')
-    s3 = boto3.resource('s3')
+    s3 = boto3.client('s3')
     table = dynamodb.Table(nombre_tabla)
 
     s3.put_object(
