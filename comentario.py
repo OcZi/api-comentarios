@@ -25,7 +25,7 @@ def lambda_handler(event, context):
 
     s3.put_object(
         Bucket=s3_name,
-        key=f"{tenant_id}/{uuidv1}.json",
+        Key=f"{tenant_id}/{uuidv1}.json",
         Body=json.dumps(comentario),
         ContentType="application/json"
     )
