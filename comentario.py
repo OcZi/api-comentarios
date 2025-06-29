@@ -1,6 +1,5 @@
 import boto3
 import uuid
-import s3
 import os
 
 def lambda_handler(event, context):
