@@ -1,5 +1,6 @@
 import boto3
 import uuid
+import s3
 import os
 
 def lambda_handler(event, context):
@@ -8,6 +9,7 @@ def lambda_handler(event, context):
     tenant_id = event['body']['tenant_id']
     texto = event['body']['texto']
     nombre_tabla = os.environ["TABLE_NAME"]
+    s3_name = os.environ["S3_NAME"]
     # Proceso
     uuidv1 = str(uuid.uuid1())
     comentario = {
@@ -18,7 +20,15 @@ def lambda_handler(event, context):
         }
     }
     dynamodb = boto3.resource('dynamodb')
+    s3 = boto3.resource('s3')
     table = dynamodb.Table(nombre_tabla)
+
+    s3.put_object(
+        Bucket=s3_name,
+        key=f"{tenant_id}/{uuidv1}.json",
+        Body=json.dumps(comentario),
+        ContentType="application/json"
+    )
     response = table.put_item(Item=comentario)
     # Salida (json)
     print(comentario)
