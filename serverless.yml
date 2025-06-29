@@ -44,6 +44,6 @@ resources:
     S3Comentarios:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.S3_NAME}
+        BucketName: ${self:provider.environment.S3_NAME}
         VersioningConfiguration:
           Status: Enabled
